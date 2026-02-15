@@ -63,7 +63,7 @@ public class CsvCoffeeShopParser implements CoffeeShopParser {
             return Double.parseDouble(coordinateStr);
         } catch (NumberFormatException e) {
             throw new InvalidDataException(
-                    String.format("Line %d: Invalid X coordinate '%s'. Must be a valid number.",
+                    String.format("Line %d: Invalid coordinate '%s'. Must be a valid number.",
                             lineNumber, coordinateStr), e
             );
         }
