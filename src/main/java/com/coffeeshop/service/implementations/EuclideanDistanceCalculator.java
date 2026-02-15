@@ -1,4 +1,6 @@
-package com.coffeeshop.service;
+package com.coffeeshop.service.implementations;
+
+import com.coffeeshop.service.interfaces.DistanceCalculator;
 
 public class EuclideanDistanceCalculator implements DistanceCalculator {
     @Override

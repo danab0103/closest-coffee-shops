@@ -1,4 +1,4 @@
-package com.coffeeshop.service;
+package com.coffeeshop.service.interfaces;
 
 /**
  * Interface for calculating distances between two points.
