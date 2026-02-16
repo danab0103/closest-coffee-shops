@@ -42,3 +42,14 @@ Starbucks Seattle2,0.0645
 Starbucks Seattle,0.0861
 Starbucks SF,10.0793
 ```
+
+## How to run
+Prerequisites:
+- Java 17 or higher
+1. Create output directory
+mkdir target\classes
+2. Compile
+javac -d target/classes -sourcepath src/main/java src/main/java/com/coffeeshop/Main.java src/main/java/com/coffeeshop/model/*.java src/main/java/com/coffeeshop/service/interfaces/*.java src/main/java/com/coffeeshop/service/implementations/*.java src/main/java/com/coffeeshop/exception/*.java
+3. Run 
+java -cp target/classes com.coffeeshop.Main 47.6 -122.4 https://raw.githubusercontent.com/Agilefreaks/test_oop/master/coffee_shops.csv
+
