@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * Interface for fetching data from various sources (URLs, files, etc.).
- *Allows different data source implementations.
+ * Allows different data source implementations.
  */
 public interface DataFetcher {
     String fetchData(String location) throws IOException, InterruptedException, InvalidDataException;

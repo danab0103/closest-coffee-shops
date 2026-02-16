@@ -55,7 +55,7 @@ public class CsvCoffeeShopParser implements CoffeeShopParser {
     private void validateFieldCount(String[] parts, int lineNumber) throws InvalidDataException {
         if (parts.length != EXPECTED_FIELD_COUNT) {
             throw new InvalidDataException(String.format("Line %d: Invalid CSV format. Expected %d fields (Name,Y,X), got %d",
-                            lineNumber, EXPECTED_FIELD_COUNT, parts.length));
+                    lineNumber, EXPECTED_FIELD_COUNT, parts.length));
         }
     }
 

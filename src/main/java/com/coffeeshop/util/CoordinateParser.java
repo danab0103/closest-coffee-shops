@@ -23,7 +23,7 @@ public class CoordinateParser {
             return parse(value);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(String.format("Invalid %s coordinate: '%s'. Must be a valid number.",
-                            coordinateName, value), e);
+                    coordinateName, value), e);
         }
     }
 
@@ -36,7 +36,7 @@ public class CoordinateParser {
             return parse(value);
         } catch (NumberFormatException e) {
             throw new InvalidDataException(String.format("Line %d: Invalid %s coordinate '%s'. Must be a valid number.",
-                            lineNumber, coordinateName, value));
+                    lineNumber, coordinateName, value));
         }
     }
 }

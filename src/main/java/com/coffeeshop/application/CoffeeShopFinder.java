@@ -26,7 +26,7 @@ public class CoffeeShopFinder {
         this.distanceCalculator = distanceCalculator;
     }
 
-    public List<CoffeeShopDto> findClosest(double userX, double userY, String dataUrl,  int limit)
+    public List<CoffeeShopDto> findClosest(double userX, double userY, String dataUrl, int limit)
             throws InvalidDataException, IOException, InterruptedException {
 
         String rawData = dataFetcher.fetchData(dataUrl);

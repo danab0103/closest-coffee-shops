@@ -15,6 +15,8 @@ public class Main {
     private static final int MAX_RESULTS = 3;
 
     public static void main(String[] args) {
+        int exitCode = 0;
+
         try {
             validateNumberOfArguments(args);
             double userX = CoordinateParser.parseCoordinate(args[0], "X");
@@ -28,28 +30,26 @@ public class Main {
 
             List<CoffeeShopDto> results = finder.findClosest(userX, userY, dataUrl, MAX_RESULTS);
             displayResults(results);
-        } catch (InvalidDataException e) {
+        } catch (IllegalArgumentException | InvalidDataException e) {
             System.err.println("ERROR: " + e.getMessage());
-            System.exit(1);
+            exitCode = 1;
 
         } catch (IOException e) {
-            System.err.println("ERROR: Failed to fetch data - " + e);
-            System.exit(2);
+            System.err.println("ERROR: Failed to fetch data - " + e.getMessage());
+            exitCode = 2;
 
         } catch (InterruptedException e) {
             System.err.println("ERROR: Request was interrupted - " + e.getMessage());
             Thread.currentThread().interrupt();
-            System.exit(3);
-
-        } catch (IllegalArgumentException e) {
-            System.err.println("ERROR: " + e.getMessage());
-            System.exit(4);
+            exitCode = 3;
 
         } catch (Exception e) {
             System.err.println("ERROR: Unexpected error - " + e.getMessage());
             e.printStackTrace();
-            System.exit(5);
+            exitCode = 4;
         }
+
+        System.exit(exitCode);
     }
 
     private static void validateNumberOfArguments(String[] args) {
