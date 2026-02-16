@@ -5,6 +5,7 @@ import com.coffeeshop.application.CoffeeShopFinder;
 import com.coffeeshop.exception.InvalidDataException;
 import com.coffeeshop.service.interfaces.*;
 import com.coffeeshop.service.implementations.*;
+import com.coffeeshop.util.CoordinateParser;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,8 +17,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             validateNumberOfArguments(args);
-            double userX = parseCoordinate(args[0]);
-            double userY = parseCoordinate(args[1]);
+            double userX = CoordinateParser.parseCoordinate(args[0], "X");
+            double userY = CoordinateParser.parseCoordinate(args[1], "Y");
             String dataUrl = args[2];
 
             DataFetcher dataFetcher = new UrlDataFetcher();
@@ -54,14 +55,6 @@ public class Main {
     private static void validateNumberOfArguments(String[] args) {
         if (args.length != 3) {
             throw new IllegalArgumentException(String.format("Expected 3 arguments, got %d", args.length));
-        }
-    }
-
-    private static double parseCoordinate(String value) {
-        try {
-            return Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(String.format("Invalid coordinate: '%s'. Must be a valid number.", value), e);
         }
     }
 

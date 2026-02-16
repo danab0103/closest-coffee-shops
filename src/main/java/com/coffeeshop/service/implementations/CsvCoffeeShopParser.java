@@ -3,6 +3,7 @@ package com.coffeeshop.service.implementations;
 import com.coffeeshop.exception.InvalidDataException;
 import com.coffeeshop.model.CoffeeShop;
 import com.coffeeshop.service.interfaces.CoffeeShopParser;
+import com.coffeeshop.util.CoordinateParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +37,8 @@ public class CsvCoffeeShopParser implements CoffeeShopParser {
         String[] parts = line.split(",");
 
         if (parts.length != 3) {
-            throw new InvalidDataException(
-                    String.format("Line %d: Invalid CSV format. Expected 3 fields (Name,Y,X), got %d",
-                            lineNumber, parts.length)
-            );
+            throw new InvalidDataException(String.format("Line %d: Invalid CSV format. Expected 3 fields (Name,Y,X), got %d",
+                            lineNumber, parts.length));
         }
 
         String name = parts[0].trim();
@@ -47,25 +46,12 @@ public class CsvCoffeeShopParser implements CoffeeShopParser {
         String yCoordinateStr = parts[2].trim();
 
         if (name.isEmpty()) {
-            throw new InvalidDataException(
-                    String.format("Line %d: Coffee shop name cannot be empty", lineNumber)
-            );
+            throw new InvalidDataException(String.format("Line %d: Coffee shop name cannot be empty", lineNumber));
         }
 
-        double x = tryParseDouble(xCoordinateStr, lineNumber);
-        double y = tryParseDouble(yCoordinateStr, lineNumber);
+        double x = CoordinateParser.parseCoordinateFromCsv(xCoordinateStr, lineNumber, "X");
+        double y = CoordinateParser.parseCoordinateFromCsv(yCoordinateStr, lineNumber, "Y");
 
         return new CoffeeShop(name, x, y);
-    }
-
-    private double tryParseDouble(String coordinateStr, int lineNumber) throws InvalidDataException {
-        try {
-            return Double.parseDouble(coordinateStr);
-        } catch (NumberFormatException e) {
-            throw new InvalidDataException(
-                    String.format("Line %d: Invalid coordinate '%s'. Must be a valid number.",
-                            lineNumber, coordinateStr), e
-            );
-        }
     }
 }
