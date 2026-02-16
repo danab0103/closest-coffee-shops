@@ -9,5 +9,5 @@ import java.io.IOException;
  * Allows different data source implementations.
  */
 public interface DataFetcher {
-    String fetchData(String location) throws IOException, InterruptedException, InvalidDataException;
+    String fetchData(String source) throws IOException, InterruptedException, InvalidDataException;
 }

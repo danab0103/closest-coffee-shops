@@ -34,7 +34,7 @@ public class CsvCoffeeShopParser implements CoffeeShopParser {
     }
 
     private CoffeeShop parseLine(String line, int lineNumber) throws InvalidDataException {
-        String[] parts = line.split(",");
+        String[] parts = line.split(",", -1);
         validateFieldCount(parts, lineNumber);
 
         String name = parts[0].trim();
@@ -54,7 +54,7 @@ public class CsvCoffeeShopParser implements CoffeeShopParser {
 
     private void validateFieldCount(String[] parts, int lineNumber) throws InvalidDataException {
         if (parts.length != EXPECTED_FIELD_COUNT) {
-            throw new InvalidDataException(String.format("Line %d: Invalid CSV format. Expected %d fields (Name,Y,X), got %d",
+            throw new InvalidDataException(String.format("Line %d: Invalid CSV format. Expected %d fields (Name,X,Y), got %d",
                     lineNumber, EXPECTED_FIELD_COUNT, parts.length));
         }
     }

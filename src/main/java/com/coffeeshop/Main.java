@@ -54,7 +54,7 @@ public class Main {
 
     private static void validateNumberOfArguments(String[] args) {
         if (args.length != 3) {
-            throw new IllegalArgumentException(String.format("Expected 3 arguments, got %d", args.length));
+            throw new IllegalArgumentException(String.format("Expected 3 arguments (X, Y, url), got %d", args.length));
         }
     }
 
