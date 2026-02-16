@@ -20,6 +20,10 @@ public class UrlDataFetcher implements DataFetcher {
         this.httpClient = HttpClient.newHttpClient();
     }
 
+    public UrlDataFetcher(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
     @Override
     public String fetchData(String url) throws IOException, InterruptedException, InvalidDataException {
         try {

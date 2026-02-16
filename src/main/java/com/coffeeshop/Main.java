@@ -23,10 +23,7 @@ public class Main {
             double userY = CoordinateParser.parseCoordinate(args[1], "Y");
             String dataUrl = args[2];
 
-            DataFetcher dataFetcher = new UrlDataFetcher();
-            CoffeeShopParser parser = new CsvCoffeeShopParser();
-            DistanceCalculator distanceCalculator = new EuclideanDistanceCalculator();
-            CoffeeShopFinder finder = new CoffeeShopFinder(dataFetcher, parser, distanceCalculator);
+            CoffeeShopFinder finder = buildFinder();
 
             List<CoffeeShopDto> results = finder.findClosest(userX, userY, dataUrl, MAX_RESULTS);
             displayResults(results);
@@ -50,6 +47,13 @@ public class Main {
         }
 
         System.exit(exitCode);
+    }
+
+    private static CoffeeShopFinder buildFinder() {
+        DataFetcher dataFetcher = new UrlDataFetcher();
+        CoffeeShopParser parser = new CsvCoffeeShopParser();
+        DistanceCalculator distanceCalculator = new EuclideanDistanceCalculator();
+        return new CoffeeShopFinder(dataFetcher, parser, distanceCalculator);
     }
 
     private static void validateNumberOfArguments(String[] args) {
