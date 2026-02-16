@@ -39,7 +39,7 @@ public class UrlDataFetcher implements DataFetcher {
             return response.body();
 
         } catch (IllegalArgumentException e) {
-            throw new InvalidDataException("Invalid URL format: " + url, e);
+            throw new InvalidDataException("Invalid URL format: " + url);
         }
     }
 }
