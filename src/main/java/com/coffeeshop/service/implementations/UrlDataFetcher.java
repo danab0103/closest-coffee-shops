@@ -8,6 +8,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
+import java.time.Duration;
 
 /**
  * Fetches data from HTTP/HTTPS URLs using Java's HttpClient.
@@ -15,9 +17,13 @@ import java.net.http.HttpResponse;
 public class UrlDataFetcher implements DataFetcher {
 
     private final HttpClient httpClient;
+    private static final Duration CONNECTION_TIMEOUT = Duration.ofSeconds(10);
+    private static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(30);
 
     public UrlDataFetcher() {
-        this.httpClient = HttpClient.newHttpClient();
+        this.httpClient = HttpClient.newBuilder()
+                .connectTimeout(CONNECTION_TIMEOUT)
+                .build();
     }
 
     public UrlDataFetcher(HttpClient httpClient) {
@@ -30,6 +36,7 @@ public class UrlDataFetcher implements DataFetcher {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .GET()
+                    .timeout(REQUEST_TIMEOUT)
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -44,6 +51,8 @@ public class UrlDataFetcher implements DataFetcher {
 
         } catch (IllegalArgumentException e) {
             throw new InvalidDataException("Invalid URL format: " + url);
+        } catch (HttpTimeoutException e) {
+            throw new IOException("Request timed out. Server may be unavailable: " + url);
         }
     }
 }
