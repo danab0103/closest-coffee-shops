@@ -36,13 +36,23 @@ public class CoffeeShopFinder {
             throw new InvalidDataException("No valid coffee shops found in the data");
         }
 
-        return coffeeShops.stream()
+        List<CoffeeShopDto> allDistinctCoffeeShops = coffeeShops.stream()
+                .distinct()
                 .map(shop -> {
                     double distance = distanceCalculator.calculate(userX, userY, shop.x(), shop.y());
                     return new CoffeeShopDto(shop.name(), distance);
                 })
                 .sorted(Comparator.comparingDouble(CoffeeShopDto::distance))
-                .limit(limit)
+                .toList();
+
+        if (allDistinctCoffeeShops.size() <= limit) {
+            return allDistinctCoffeeShops;
+        }
+
+        double thresholdDistance = allDistinctCoffeeShops.get(limit - 1).distance();
+
+        return allDistinctCoffeeShops.stream()
+                .filter(shop -> shop.distance() <= thresholdDistance)
                 .toList();
     }
 }
